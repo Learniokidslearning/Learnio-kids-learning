@@ -49,12 +49,14 @@ window.loginUser = async function (event) {
 
     usersSnapshot.forEach((doc) => {
       const data = doc.data();
+
+      // Match the logged-in user's UID with the UID stored in Firestore
       if (data.uid === user.uid) {
-        userName = data.name;
+        userName = data.name || "User";
       }
     });
 
-    // Personalized welcome message
+    // Personalized welcome popup
     alert(`Welcome, ${userName}! Login successful.`);
 
     // Redirect to homepage
