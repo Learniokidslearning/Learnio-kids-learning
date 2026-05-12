@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Learniokidslearning</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .admin-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #6a5acd;
+            color: white;
+        }
+
+        .admin-actions {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .admin-actions button {
+            background: #6a5acd;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .admin-actions button:hover {
+            background: #483d8b;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h2>👨‍💼 Admin Dashboard</h2>
+        <p>Registered users stored in this browser:</p>
+
+        <div class="admin-actions">
+            <button onclick="loadUsers()">Refresh</button>
+            <button onclick="clearUsers()">Delete All Users</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="usersTableBody">
+                <tr>
+                    <td colspan="2">No users found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function loadUsers() {
+            const tableBody = document.getElementById("usersTableBody");
+            const savedUser = JSON.parse(localStorage.getItem("learnioUser"));
+
+            if (savedUser) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td>${savedUser.name}</td>
+                        <td>${savedUser.email}</td>
+                    </tr>
+                `;
+            } else {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="2">No users found.</td>
+                    </tr>
+                `;
+            }
+        }
+
+        function clearUsers() {
+            if (confirm("Delete all stored users from this browser?")) {
+                localStorage.removeItem("learnioUser");
+                loadUsers();
+            }
+        }
+
+        // Load data automatically
+        loadUsers();
+    </script>
+</body>
+</html>
