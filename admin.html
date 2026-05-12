@@ -1,111 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard - Learniokidslearning</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-        .admin-container {
-            max-width: 1000px;
-            margin: 50px auto;
-            padding: 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Learniokidslearning</title>
+<link rel="stylesheet" href="style.css">
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+<style>
+.admin-container {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 20px;
+}
 
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
+.admin-container h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #4b0082;
+}
 
-        th {
-            background: #6a5acd;
-            color: white;
-        }
+.admin-container p {
+    text-align: center;
+    margin-bottom: 30px;
+}
 
-        .admin-actions {
-            margin: 20px 0;
-            display: flex;
-            gap: 10px;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
 
-        .admin-actions button {
-            background: #6a5acd;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+th, td {
+    padding: 14px;
+    border: 1px solid #eee;
+    text-align: left;
+}
 
-        .admin-actions button:hover {
-            background: #483d8b;
-        }
-    </style>
+th {
+    background: #6a5acd;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f9f9ff;
+}
+
+.refresh-btn {
+    display: block;
+    margin: 0 auto 20px;
+    background: #6a5acd;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.refresh-btn:hover {
+    background: #483d8b;
+}
+</style>
 </head>
 <body>
-    <div class="admin-container">
-        <h2>👨‍💼 Admin Dashboard</h2>
-        <p>Registered users stored in this browser:</p>
 
-        <div class="admin-actions">
-            <button onclick="loadUsers()">Refresh</button>
-            <button onclick="clearUsers()">Delete All Users</button>
-        </div>
+<div class="admin-container">
+    <h2>👨‍💼 Admin Dashboard</h2>
+    <p>All registered users from Firebase Firestore</p>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody id="usersTableBody">
-                <tr>
-                    <td colspan="2">No users found.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <button class="refresh-btn" onclick="loadUsers()">🔄 Refresh Users</button>
 
-    <script>
-        function loadUsers() {
-            const tableBody = document.getElementById("usersTableBody");
-            const savedUser = JSON.parse(localStorage.getItem("learnioUser"));
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Signup Date</th>
+            </tr>
+        </thead>
+        <tbody id="usersTableBody">
+            <tr>
+                <td colspan="3">Loading users...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-            if (savedUser) {
-                tableBody.innerHTML = `
-                    <tr>
-                        <td>${savedUser.name}</td>
-                        <td>${savedUser.email}</td>
-                    </tr>
-                `;
-            } else {
-                tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="2">No users found.</td>
-                    </tr>
-                `;
-            }
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import {
+    getFirestore,
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDE3B-6cxVvhr75GB2GkvEbseHLSIZMmBk",
+  authDomain: "learniokidslearning-ee6f9.firebaseapp.com",
+  projectId: "learniokidslearning-ee6f9",
+  storageBucket: "learniokidslearning-ee6f9.firebasestorage.app",
+  messagingSenderId: "39907579353",
+  appId: "1:39907579353:web:91ccb1a083f2ac5f67f5c8",
+  measurementId: "G-KSMT5XS3YQ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Make function available to the button
+window.loadUsers = async function () {
+    const tableBody = document.getElementById("usersTableBody");
+    tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+
+        if (querySnapshot.empty) {
+            tableBody.innerHTML =
+                '<tr><td colspan="3">No users found.</td></tr>';
+            return;
         }
 
-        function clearUsers() {
-            if (confirm("Delete all stored users from this browser?")) {
-                localStorage.removeItem("learnioUser");
-                loadUsers();
-            }
-        }
+        let rows = "";
 
-        // Load data automatically
-        loadUsers();
-    </script>
+        querySnapshot.forEach((doc) => {
+            const user = doc.data();
+
+            rows += `
+                <tr>
+                    <td>${user.name || "N/A"}</td>
+                    <td>${user.email || "N/A"}</td>
+                    <td>${user.createdAt || "N/A"}</td>
+                </tr>
+            `;
+        });
+
+        tableBody.innerHTML = rows;
+    } catch (error) {
+        tableBody.innerHTML =
+            `<tr><td colspan="3">Error: ${error.message}</td></tr>`;
+        console.error(error);
+    }
+};
+
+// Load users automatically when the page opens
+loadUsers();
+</script>
+
 </body>
 </html>
