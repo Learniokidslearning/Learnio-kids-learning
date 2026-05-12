@@ -21,6 +21,7 @@ import {
 // ========================================
 // FIREBASE CONFIGURATION
 // ========================================
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyD6neQSX3wAQug4zZAK8WdmfsUxQ6r_hcQ",
   authDomain: "learniokidslearning-v3.firebaseapp.com",
