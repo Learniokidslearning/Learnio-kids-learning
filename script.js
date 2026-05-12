@@ -70,3 +70,32 @@ onAuthStateChanged(auth, (user) => {
     }
   }
 });
+// =========================
+// UPDATE HOMEPAGE NAVIGATION BASED ON LOGIN STATUS
+// =========================
+onAuthStateChanged(auth, (user) => {
+  const loginNav = document.getElementById("loginNav");
+  const signupNav = document.getElementById("signupNav");
+  const welcomeNav = document.getElementById("welcomeNav");
+  const logoutNav = document.getElementById("logoutNav");
+  const userEmail = document.getElementById("userEmail");
+
+  // Run this code only if these elements exist on index.html
+  if (loginNav && signupNav && welcomeNav && logoutNav && userEmail) {
+    if (user) {
+      // User is logged in
+      loginNav.style.display = "none";
+      signupNav.style.display = "none";
+      welcomeNav.style.display = "inline-block";
+      logoutNav.style.display = "inline-block";
+      userEmail.textContent = user.email;
+    } else {
+      // User is logged out
+      loginNav.style.display = "inline-block";
+      signupNav.style.display = "inline-block";
+      welcomeNav.style.display = "none";
+      logoutNav.style.display = "none";
+      userEmail.textContent = "";
+    }
+  }
+});
