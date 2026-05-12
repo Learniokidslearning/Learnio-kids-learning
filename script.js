@@ -21,17 +21,16 @@ import {
 // ========================================
 // FIREBASE CONFIGURATION
 // ========================================
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
   apiKey: "AIzaSyD6neQSX3wAQug4zZAK8WdmfsUxQ6r_hcQ",
   authDomain: "learniokidslearning-v3.firebaseapp.com",
   projectId: "learniokidslearning-v3",
   storageBucket: "learniokidslearning-v3.firebasestorage.app",
   messagingSenderId: "316801934015",
-  appId: "1:316801934015:web:67905032d8d5546218dc0a",
-  measurementId: "G-HQE3NVRV2N"
+  appId: "1:316801934015:web:a52c121585c9240618dc0a",
+  measurementId: "G-KR9L5M3VWK"
 };
-
 // ========================================
 // INITIALIZE FIREBASE
 // ========================================
