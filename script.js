@@ -1,4 +1,55 @@
-// Firebase Imports
+// ========================================
+// FIREBASE IMPORTS
+// ========================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+// ========================================
+// FIREBASE CONFIGURATION
+// ========================================
+const firebaseConfig = {
+  apiKey: "AIzaSyDE3B-6cxVvhr75GB2GkvEbseHLSIZMmBk",
+  authDomain: "learniokidslearning-ee6f9.firebaseapp.com",
+  projectId: "learniokidslearning-ee6f9",
+  storageBucket: "learniokidslearning-ee6f9.firebasestorage.app",
+  messagingSenderId: "39907579353",
+  appId: "1:39907579353:web:91ccb1a083f2ac5f67f5c8",
+  measurementId: "G-KSMT5XS3YQ"
+};
+
+// ========================================
+// INITIALIZE FIREBASE
+// ========================================
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+// ========================================
+// SIGNUP FUNCTION
+// ========================================
+window.signupUser = async function (event) {
+  event.preventDefault();
+
+  const name = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  try {
+    // Create account with Firebase Authentication
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -17,15 +68,16 @@
 
     alert("Account created successfully!");
     window.location.href = "login.html";
+
   } catch (error) {
     alert("Signup Error: " + error.message);
     console.error(error);
   }
 };
 
-// =========================
+// ========================================
 // LOGIN FUNCTION
-// =========================
+// ========================================
 window.loginUser = async function (event) {
   event.preventDefault();
 
@@ -33,7 +85,7 @@ window.loginUser = async function (event) {
   const password = document.getElementById("loginPassword").value;
 
   try {
-    // Log in with Firebase Authentication
+    // Login using Firebase Authentication
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
@@ -42,21 +94,22 @@ window.loginUser = async function (event) {
 
     const user = userCredential.user;
 
-    // Find the user's name from Firestore
+    // Read all users from Firestore
     const usersSnapshot = await getDocs(collection(db, "users"));
 
+    // Default name
     let userName = "User";
 
+    // Find the logged-in user's name
     usersSnapshot.forEach((doc) => {
       const data = doc.data();
 
-      // Match the logged-in user's UID with the UID stored in Firestore
       if (data.uid === user.uid) {
         userName = data.name || "User";
       }
     });
 
-    // Personalized welcome popup
+    // Show personalized popup
     alert(`Welcome, ${userName}! Login successful.`);
 
     // Redirect to homepage
@@ -68,9 +121,9 @@ window.loginUser = async function (event) {
   }
 };
 
-// =========================
+// ========================================
 // LOGOUT FUNCTION
-// =========================
+// ========================================
 window.logoutUser = async function () {
   try {
     await signOut(auth);
@@ -78,13 +131,18 @@ window.logoutUser = async function () {
     window.location.href = "index.html";
   } catch (error) {
     alert("Logout Error: " + error.message);
+    console.error(error);
   }
 };
 
-// =========================
-// SHOW USER NAME IN DASHBOARD
-// =========================
+// ========================================
+// AUTH STATE HANDLER
+// ========================================
 onAuthStateChanged(auth, (user) => {
+
+  // ------------------------
+  // Dashboard Page Support
+  // ------------------------
   const userInfo = document.getElementById("userInfo");
 
   if (userInfo) {
@@ -92,13 +150,13 @@ onAuthStateChanged(auth, (user) => {
       userInfo.textContent = `Welcome, ${user.email}`;
     } else {
       window.location.href = "login.html";
+      return;
     }
   }
-});
-// =========================
-// UPDATE HOMEPAGE NAVIGATION BASED ON LOGIN STATUS
-// =========================
-onAuthStateChanged(auth, (user) => {
+
+  // ------------------------
+  // Homepage Navigation Support
+  // ------------------------
   const loginNav = document.getElementById("loginNav");
   const signupNav = document.getElementById("signupNav");
   const welcomeNav = document.getElementById("welcomeNav");
@@ -106,19 +164,23 @@ onAuthStateChanged(auth, (user) => {
   const userEmail = document.getElementById("userEmail");
   const adminNav = document.getElementById("adminNav");
 
-  // Replace this with your own admin email
+  // Your admin email
   const adminEmail = "learniokidslearning@gmail.com";
 
+  // Run only if these elements exist on index.html
   if (loginNav && signupNav && welcomeNav && logoutNav && userEmail) {
+
     if (user) {
       // User is logged in
       loginNav.style.display = "none";
       signupNav.style.display = "none";
       welcomeNav.style.display = "inline-block";
       logoutNav.style.display = "inline-block";
+
+      // Show user's email
       userEmail.textContent = user.email;
 
-      // Show Admin link only for your email
+      // Show Admin link only to the admin account
       if (adminNav) {
         if (user.email === adminEmail) {
           adminNav.style.display = "inline-block";
@@ -126,12 +188,15 @@ onAuthStateChanged(auth, (user) => {
           adminNav.style.display = "none";
         }
       }
+
     } else {
       // User is logged out
       loginNav.style.display = "inline-block";
       signupNav.style.display = "inline-block";
       welcomeNav.style.display = "none";
       logoutNav.style.display = "none";
+
+      // Clear email
       userEmail.textContent = "";
 
       // Hide Admin link
