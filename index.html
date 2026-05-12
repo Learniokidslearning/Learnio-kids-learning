@@ -12,30 +12,47 @@
     <header>
         <nav class="navbar">
             <h1 class="logo">🌈 Learniokidslearning</h1>
-       <ul class="nav-links">
+      <!-- Replace ONLY your <ul class="nav-links"> ... </ul> section in index.html with this code -->
+
+<ul class="nav-links">
+    <!-- Main Navigation Links -->
     <li><a href="#home">Home</a></li>
     <li><a href="#courses">Courses</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
 
-    <!-- Show when user is NOT logged in -->
-    <li id="loginNav"><a href="login.html">Login</a></li>
-    <li id="signupNav"><a href="signup.html">Sign Up</a></li>
+    <!-- Visible only when the user is NOT logged in -->
+    <li id="loginNav">
+        <a href="login.html">Login</a>
+    </li>
 
-    <!-- Show when user IS logged in -->
-    <li id="welcomeNav" style="display:none; color:white; font-weight:bold;">
+    <li id="signupNav">
+        <a href="signup.html">Sign Up</a>
+    </li>
+
+    <!-- Visible only when the user IS logged in -->
+    <li id="welcomeNav"
+        style="display: none; color: white; font-weight: bold;">
         Welcome, <span id="userEmail"></span>
     </li>
 
-    <li id="logoutNav" style="display:none;">
-        <a href="#" onclick="logoutUser()">Logout</a>
+    <!-- Visible only when the user IS logged in -->
+    <li id="logoutNav" style="display: none;">
+        <a href="#" onclick="logoutUser(); return false;">Logout</a>
     </li>
 
-    <!-- Admin Page -->
-  <li id="adminNav" style="display:none;">
-    <a href="admin.html">Admin</a>
-</li>
+    <!-- Admin link: hidden by default, shown only to your admin email -->
+    <li id="adminNav" style="display: none;">
+        <a href="admin.html">Admin</a>
+    </li>
 </ul>
+
+<!-- IMPORTANT:
+At the very bottom of index.html, just before </body>,
+make sure you have this exact line:
+
+<script type="module" src="script.js"></script>
+-->
         </nav>
     </header>
 
