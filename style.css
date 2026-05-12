@@ -1,219 +1,326 @@
-/* Reset */
+/* ==========================================
+   LEARNIOKIDSLEARNING - MULTICOLOR STYLE.CSS
+   Fun, Bright and Modern Design for Kids
+========================================== */
+
+/* Google Font for Kid-Friendly Design */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+
+/* Reset Default Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background: #fdfcff;
-    color: #333;
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
 }
 
-/* Navigation */
-.navbar {
-    background: linear-gradient(90deg, #6a5acd, #00bfff);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
+/* Body */
+body {
+    font-family: 'Fredoka', sans-serif;
+    background: linear-gradient(135deg, #fff7ed, #eff6ff, #fdf4ff);
+    color: #334155;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   HEADER & NAVIGATION
+========================================== */
+header {
+    background: linear-gradient(90deg, #ff6b6b, #f59e0b, #10b981, #3b82f6, #8b5cf6);
+    background-size: 400% 400%;
+    animation: rainbowHeader 12s ease infinite;
+    padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes rainbowHeader {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.navbar {
+    width: 92%;
+    max-width: 1300px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
-    font-size: 28px;
-    font-weight: bold;
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.25);
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 25px;
+    gap: 22px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-links li {
+    display: flex;
+    align-items: center;
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: all 0.3s ease;
 }
 
 .nav-links a:hover {
-    text-decoration: underline;
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-2px);
 }
 
-/* Hero Section */
+/* Welcome Text */
+#welcomeNav {
+    color: white;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.18);
+    padding: 8px 14px;
+    border-radius: 999px;
+}
+
+/* ==========================================
+   HERO SECTION
+========================================== */
 .hero {
-    background: linear-gradient(135deg, #ffe4e1, #e0ffff);
     text-align: center;
-    padding: 100px 20px;
+    padding: 120px 20px;
+    background: linear-gradient(135deg, #dbeafe, #fef3c7, #fce7f3, #dcfce7);
+    background-size: 300% 300%;
+    animation: heroGradient 10s ease infinite;
+}
+
+@keyframes heroGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .hero h2 {
-    font-size: 48px;
-    color: #4b0082;
+    font-size: 3.4rem;
+    color: #1e3a8a;
     margin-bottom: 20px;
+    font-weight: 700;
 }
 
 .hero p {
-    font-size: 20px;
-    margin-bottom: 30px;
+    font-size: 1.35rem;
+    color: #475569;
+    max-width: 760px;
+    margin: 0 auto 35px;
 }
 
+/* Main Button */
 .btn {
     display: inline-block;
-    background: #ff69b4;
+    background: linear-gradient(90deg, #ff6b6b, #f59e0b, #3b82f6);
     color: white;
-    padding: 14px 28px;
-    border-radius: 30px;
     text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
+    padding: 15px 34px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
-    background: #ff1493;
-    transform: scale(1.05);
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 14px 30px rgba(59, 130, 246, 0.35);
 }
 
-/* Sections */
+/* ==========================================
+   GENERAL SECTIONS
+========================================== */
 section {
-    padding: 70px 20px;
+    padding: 90px 20px;
 }
 
 section h2 {
     text-align: center;
-    font-size: 36px;
-    margin-bottom: 40px;
-    color: #4b0082;
+    font-size: 2.6rem;
+    margin-bottom: 50px;
+    color: #1e293b;
+}
+
+/* ==========================================
+   COURSE & PRICING GRIDS
+========================================== */
+.course-grid,
+.pricing-grid {
+    width: 92%;
+    max-width: 1250px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 
 /* Cards */
-.course-grid,
-.pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    max-width: 1100px;
-    margin: auto;
-}
-
 .card,
 .plan {
     background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+    transition: all 0.35s ease;
+    border-top: 6px solid transparent;
+}
+
+.card:nth-child(1) { border-top-color: #ef4444; }
+.card:nth-child(2) { border-top-color: #f59e0b; }
+.card:nth-child(3) { border-top-color: #10b981; }
+.card:nth-child(4) { border-top-color: #3b82f6; }
+
+.card:hover,
+.plan:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
 }
 
 .card h3,
 .plan h3 {
-    margin-bottom: 15px;
-    color: #6a5acd;
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+    color: #0f172a;
 }
 
-.price {
-    font-size: 30px;
-    font-weight: bold;
-    color: #ff1493;
-    margin: 20px 0;
+.card p,
+.plan li {
+    color: #475569;
 }
 
 .plan ul {
-    list-style: none;
-    margin-bottom: 20px;
+    margin: 20px 0;
+    padding-left: 20px;
 }
 
-.plan ul li {
-    margin: 10px 0;
+.plan li {
+    margin-bottom: 10px;
 }
 
-.plan button {
-    background: #6a5acd;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.plan button:hover {
-    background: #483d8b;
-}
-
+/* Premium Plan Highlight */
 .premium {
-    border: 4px solid gold;
+    border: 4px solid #f59e0b;
+    background: linear-gradient(180deg, #fffef7, #ffffff);
+    transform: scale(1.03);
 }
 
-/* Contact Form */
+.price {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #4f46e5;
+    margin: 20px 0;
+}
+
+/* ==========================================
+   CONTACT FORM
+========================================== */
 form {
-    max-width: 600px;
+    max-width: 650px;
     margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    background: white;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
 }
 
 input,
 textarea {
-    padding: 14px;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    font-size: 16px;
+    width: 100%;
+    padding: 15px 18px;
+    margin-bottom: 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 1rem;
 }
 
-textarea {
-    min-height: 120px;
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
 }
 
-form button {
-    background: #00bfff;
+/* Buttons */
+button {
+    background: linear-gradient(90deg, #8b5cf6, #3b82f6, #10b981);
     color: white;
     border: none;
-    padding: 14px;
-    border-radius: 10px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
-form button:hover {
-    background: #009acd;
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
 }
 
-/* Footer */
+/* ==========================================
+   FOOTER
+========================================== */
 footer {
-    background: #4b0082;
+    background: linear-gradient(90deg, #1e293b, #0f172a);
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 30px 20px;
+    margin-top: 40px;
 }
 
-/* Responsive Design */
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
-        gap: 15px;
-        padding: 20px;
+        gap: 18px;
     }
 
     .nav-links {
-        flex-wrap: wrap;
         justify-content: center;
-        gap: 15px;
+        gap: 12px;
+    }
+
+    .hero {
+        padding: 90px 20px;
     }
 
     .hero h2 {
-        font-size: 32px;
+        font-size: 2.3rem;
+    }
+
+    .hero p {
+        font-size: 1.05rem;
     }
 
     section h2 {
-        font-size: 28px;
+        font-size: 2rem;
+    }
+
+    form {
+        padding: 28px;
     }
 }
