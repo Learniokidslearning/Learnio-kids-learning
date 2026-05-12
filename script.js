@@ -22,13 +22,13 @@ import {
 // FIREBASE CONFIGURATION
 // ========================================
 const firebaseConfig = {
-  apiKey: "AIzaSyDMASuH0HbddPO96KZMBkbYY24SM2KWIkY",
-  authDomain: "learniokidslearning-v2.firebaseapp.com",
-  projectId: "learniokidslearning-v2",
-  storageBucket: "learniokidslearning-v2.firebasestorage.app",
-  messagingSenderId: "883895389991",
-  appId: "1:883895389991:web:ae2faec8d9b6a5e0992302",
-  measurementId: "G-P8H9G9TLGW"
+  apiKey: "AIzaSyD6neQSX3wAQug4zZAK8WdmfsUxQ6r_hcQ",
+  authDomain: "learniokidslearning-v3.firebaseapp.com",
+  projectId: "learniokidslearning-v3",
+  storageBucket: "learniokidslearning-v3.firebasestorage.app",
+  messagingSenderId: "316801934015",
+  appId: "1:316801934015:web:67905032d8d5546218dc0a",
+  measurementId: "G-HQE3NVRV2N"
 };
 
 // ========================================
