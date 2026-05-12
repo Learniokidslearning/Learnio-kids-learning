@@ -36,7 +36,7 @@ window.loginUser = async function (event) {
     await signInWithEmailAndPassword(auth, email, password);
 
     alert("Login successful!");
-    window.location.href = "dashboard.html";
+    window.location.href = "index.html";
   } catch (error) {
     alert("Login Error: " + error.message);
     console.error(error);
