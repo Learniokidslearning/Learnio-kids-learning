@@ -12,13 +12,26 @@
     <header>
         <nav class="navbar">
             <h1 class="logo">🌈 Learniokidslearning</h1>
-         <ul class="nav-links">
+       <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#courses">Courses</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="login.html">Login</a></li>
-    <li><a href="signup.html">Sign Up</a></li>
+
+    <!-- Show when user is NOT logged in -->
+    <li id="loginNav"><a href="login.html">Login</a></li>
+    <li id="signupNav"><a href="signup.html">Sign Up</a></li>
+
+    <!-- Show when user IS logged in -->
+    <li id="welcomeNav" style="display:none; color:white; font-weight:bold;">
+        Welcome, <span id="userEmail"></span>
+    </li>
+
+    <li id="logoutNav" style="display:none;">
+        <a href="#" onclick="logoutUser()">Logout</a>
+    </li>
+
+    <!-- Admin Page -->
     <li><a href="admin.html">Admin</a></li>
 </ul>
         </nav>
