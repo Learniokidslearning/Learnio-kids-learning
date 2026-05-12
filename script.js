@@ -27,8 +27,8 @@ const firebaseConfig = {
   projectId: "learniokidslearning-v2",
   storageBucket: "learniokidslearning-v2.firebasestorage.app",
   messagingSenderId: "883895389991",
-  appId: "1:883895389991:web:6b97e8aecbbc7d7e992302",
-  measurementId: "G-1Y6B9VHV15"
+  appId: "1:883895389991:web:ae2faec8d9b6a5e0992302",
+  measurementId: "G-P8H9G9TLGW"
 };
 
 // ========================================
