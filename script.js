@@ -33,10 +33,33 @@ window.loginUser = async function (event) {
   const password = document.getElementById("loginPassword").value;
 
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    // Log in with Firebase Authentication
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-    alert("Login successful!");
-    window.location.href = "index.html";   // Redirect to homepage
+    const user = userCredential.user;
+
+    // Find the user's name from Firestore
+    const usersSnapshot = await getDocs(collection(db, "users"));
+
+    let userName = "User";
+
+    usersSnapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.uid === user.uid) {
+        userName = data.name;
+      }
+    });
+
+    // Personalized welcome message
+    alert(`Welcome, ${userName}! Login successful.`);
+
+    // Redirect to homepage
+    window.location.href = "index.html";
+
   } catch (error) {
     alert("Login Error: " + error.message);
     console.error(error);
