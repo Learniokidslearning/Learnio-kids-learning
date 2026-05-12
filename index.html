@@ -21,7 +21,7 @@
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
 
-    <!-- Visible only when the user is NOT logged in -->
+    <!-- Visible only when user is NOT logged in -->
     <li id="loginNav">
         <a href="login.html">Login</a>
     </li>
@@ -30,23 +30,20 @@
         <a href="signup.html">Sign Up</a>
     </li>
 
-    <!-- Visible only when the user IS logged in -->
-    <li id="welcomeNav"
-        style="display: none; color: white; font-weight: bold;">
+    <!-- Visible only when user IS logged in -->
+    <li id="welcomeNav" style="display: none; color: white; font-weight: bold;">
         Welcome, <span id="userEmail"></span>
     </li>
 
-    <!-- Visible only when the user IS logged in -->
     <li id="logoutNav" style="display: none;">
         <a href="#" onclick="logoutUser(); return false;">Logout</a>
     </li>
 
-    <!-- Admin link: hidden by default, shown only to your admin email -->
+    <!-- Admin link (visible only to your admin account) -->
     <li id="adminNav" style="display: none;">
         <a href="admin.html">Admin</a>
     </li>
 </ul>
-
 <!-- IMPORTANT:
 At the very bottom of index.html, just before </body>,
 make sure you have this exact line:
