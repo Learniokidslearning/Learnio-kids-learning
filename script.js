@@ -1,57 +1,72 @@
-// Import Firebase modules
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+// Firebase Imports
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-// Your Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDE3B-6cxVvhr75GB2GkvEbseHLSIZMmBk",
-  authDomain: "learniokidslearning-ee6f9.firebaseapp.com",
-  projectId: "learniokidslearning-ee6f9",
-  storageBucket: "learniokidslearning-ee6f9.firebasestorage.app",
-  messagingSenderId: "39907579353",
-  appId: "1:39907579353:web:91ccb1a083f2ac5f67f5c8",
-  measurementId: "G-KSMT5XS3YQ"
-};
+    const user = userCredential.user;
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// Contact form handler (works only if a form exists on the page)
-const contactForm = document.querySelector('form:not([onsubmit])');
-if (contactForm) {
-  contactForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    alert('Thank you for contacting Learniokidslearning! We will reply soon.');
-    this.reset();
-  });
-}
-
-// Signup function
-window.signupUser = async function (event) {
-  event.preventDefault();
-
-  const name = document.getElementById("signupName").value;
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-
-  try {
-    // Save user data to Firestore
+    // Save additional information in Firestore
     await addDoc(collection(db, "users"), {
+      uid: user.uid,
       name: name,
       email: email,
-      password: password, // For learning/demo only. Do not store plain passwords in production.
       createdAt: new Date().toISOString()
     });
 
     alert("Account created successfully!");
     window.location.href = "login.html";
   } catch (error) {
-    alert("Error saving data: " + error.message);
+    alert("Signup Error: " + error.message);
     console.error(error);
   }
 };
+
+// =========================
+// LOGIN FUNCTION
+// =========================
+window.loginUser = async function (event) {
+  event.preventDefault();
+
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+
+    alert("Login successful!");
+    window.location.href = "dashboard.html";
+  } catch (error) {
+    alert("Login Error: " + error.message);
+    console.error(error);
+  }
+};
+
+// =========================
+// LOGOUT FUNCTION
+// =========================
+window.logoutUser = async function () {
+  try {
+    await signOut(auth);
+    alert("Logged out successfully.");
+    window.location.href = "index.html";
+  } catch (error) {
+    alert("Logout Error: " + error.message);
+  }
+};
+
+// =========================
+// SHOW USER NAME IN DASHBOARD
+// =========================
+onAuthStateChanged(auth, (user) => {
+  const userInfo = document.getElementById("userInfo");
+
+  if (userInfo) {
+    if (user) {
+      userInfo.textContent = `Welcome, ${user.email}`;
+    } else {
+      window.location.href = "login.html";
+    }
+  }
+});
