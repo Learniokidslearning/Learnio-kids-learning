@@ -79,8 +79,11 @@ onAuthStateChanged(auth, (user) => {
   const welcomeNav = document.getElementById("welcomeNav");
   const logoutNav = document.getElementById("logoutNav");
   const userEmail = document.getElementById("userEmail");
+  const adminNav = document.getElementById("adminNav");
 
-  // Run this code only if these elements exist on index.html
+  // Replace this with your own admin email
+  const adminEmail = "learniokidslearning@gmail.com";
+
   if (loginNav && signupNav && welcomeNav && logoutNav && userEmail) {
     if (user) {
       // User is logged in
@@ -89,6 +92,15 @@ onAuthStateChanged(auth, (user) => {
       welcomeNav.style.display = "inline-block";
       logoutNav.style.display = "inline-block";
       userEmail.textContent = user.email;
+
+      // Show Admin link only for your email
+      if (adminNav) {
+        if (user.email === adminEmail) {
+          adminNav.style.display = "inline-block";
+        } else {
+          adminNav.style.display = "none";
+        }
+      }
     } else {
       // User is logged out
       loginNav.style.display = "inline-block";
@@ -96,6 +108,11 @@ onAuthStateChanged(auth, (user) => {
       welcomeNav.style.display = "none";
       logoutNav.style.display = "none";
       userEmail.textContent = "";
+
+      // Hide Admin link
+      if (adminNav) {
+        adminNav.style.display = "none";
+      }
     }
   }
 });
